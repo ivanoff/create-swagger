@@ -1,0 +1,104 @@
+#%Swagger 1.0
+title: Movies Database
+baseUri: http://127.0.0.1:3000
+version: v1
+
+types:
+
+/api.swagger:
+  get:
+    description: List all /api.swagger
+
+/movies:
+  get:
+    description: List all movies
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+             {
+               "1": {
+                 "name": "Shaun of the Dead",
+                 "year": 2004
+               },
+               "2": {
+                 "name": "Hot Fuzz",
+                 "year": 2007
+               }
+             }
+  post:
+    description: Insert a new record in to movie collection
+    body:
+      application/json:
+        type: 
+        example: |
+         {
+           "id": 3,
+           "name": "The World's End",
+           "year": 2013
+         }
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+             {
+               "id": 3,
+               "name": "The World's End",
+               "year": 2013
+             }
+      409:
+        body:
+          application/json:
+            example: |
+             {
+               "error": "id exists"
+             }
+    
+  /{id}:
+    get:
+      description: Get movie with ID {id}
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+               {
+                 "name": "Shaun of the Dead",
+                 "year": 2004
+               }
+        404:
+          body:
+            application/json:
+              example: |
+               {
+                 "error": "movie not found"
+               }
+    delete:
+      description: Delete movie with ID {id}
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+               {
+                 "ok": true
+               }
+        404:
+          body:
+            application/json:
+              example: |
+               {
+                 "error": "movie not found"
+               }
+      
+    /actors:
+      get:
+        description: List of actors that movie {id} has
+        responses:
+          200:
+            body:
+              application/json:
+                example: |
+                 {}
